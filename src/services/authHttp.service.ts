@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptionsArgs, RequestOptions, RequestMethod, URLSearchParams} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import {AdalService} from './adal.service';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AuthHttp {
