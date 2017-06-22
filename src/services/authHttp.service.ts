@@ -64,8 +64,7 @@ export class AuthHttp {
                             options1.headers = new Headers();
                         }
                         options1.headers.set('Authorization', 'Bearer ' + token);
-                        return this.http.request(url, options1)
-                            .catch(this.handleError);
+                        return this.http.request(url, options1);
                     });
             }
             else {
@@ -73,7 +72,7 @@ export class AuthHttp {
             }
         }
         else {
-            authenticatedCall = this.http.request(url, options).map(this.extractData).catch(this.handleError);
+            authenticatedCall = this.http.request(url, options).map(this.extractData);
         }
 
         return authenticatedCall;
@@ -91,11 +90,5 @@ export class AuthHttp {
         }
 
         return body || {};
-    }
-
-    private handleError(error: any) {
-        // in a real world app, we might send the error to remote logging infrastructure
-        console.error(JSON.stringify(error)); // log to console instead
-        return Observable.throw(error);
     }
 }
