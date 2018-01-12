@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/bindCallback';
 import * as adalLib from 'adal-angular';
 import { OAuthData } from './oauthdata.model';
@@ -7,13 +8,14 @@ import User = adal.User;
 
 @Injectable()
 export class AdalService {
-
+    private authenticationStatus = new BehaviorSubject(false);
     private adalContext: adal.AuthenticationContext;
     private oauthData: OAuthData = {
         isAuthenticated: false,
         userName: '',
         loginError: '',
-        profile: {}
+        profile: {},
+        authenticationStatus: this.authenticationStatus.asObservable(),
     };
 
     public init(configOptions: adal.Config) {
@@ -169,6 +171,7 @@ export class AdalService {
         this.oauthData.userName = user.userName;
         this.oauthData.profile = user.profile;
         this.oauthData.loginError = this.adalContext.getLoginError();
+        this.authenticationStatus.next(this.oauthData.isAuthenticated);
 
     };
 }
