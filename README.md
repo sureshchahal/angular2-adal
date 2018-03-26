@@ -18,3 +18,26 @@ Example and guideline:
 https://github.com/ranveeraggarwal/angular-adal-quickstart (An example for Angular 4 is on master - Angular 2 has its own branch)
 
 Pop-Up example : https://github.com/mazhisai/ng2-adal-QuickStart
+
+**BREAKING CHANGE **
+Usage Http Interceptor
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthHttpInterceptor} from 'ng2-adal/dist/core'; 
+
+Then in the providers section add:
+{
+    provide:  HTTP_INTERCEPTORS,
+    useClass: AuthHttpInterceptor,
+    multi: true
+}
+
+Do a http request / service example: (Replace the old AuthHttp with the normal HttpClient in your constructor)
+ constructor(
+            private router: Router,
+            private authHttp: HttpClient // AuthHttp = old
+            ) { }
+
+ public gettest(): Observable<any> {
+        return this.authHttp.get<any>('https://yoururl.com');
+ }

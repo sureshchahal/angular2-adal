@@ -21,9 +21,10 @@ const bundleConfig = {
     map: {
         '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
         '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+        '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
         '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
         '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
-        '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+        'tslib': 'npm:tslib',
         'rxjs': 'npm:rxjs'
     },
     packages: {
@@ -31,13 +32,18 @@ const bundleConfig = {
         'rxjs': {
             main: 'Rx.js',
             defaultExtension: 'js'
+        },
+        'tslib': {
+            main: 'tslib.js',
+            defaultExtension: 'js'
         }
     }
 };
 
 function bundle(moduleName, moduleBundleName, minify, done) {
     const outputConfig = {
-        sourceMaps: true, minify
+        sourceMaps: true,
+        minify
     };
     const builder = new Builder(bundleConfig);
     const outputFile =
